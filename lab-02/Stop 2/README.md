@@ -21,6 +21,14 @@ python3 -m http.server 8000
 
 Then visit `http://localhost:8000/`.
 
+## Classifier Development Log
+
+I asked for a first version with two inputs.
+The result was hard to understand, so I asked to show the scores.
+I found a strange prediction and asked Codex to explain it.
+I asked a classmate to try it and simplified the instructions.
+
+
 ## Credits
 
 Materials are by [Xiuye Chen](https://github.com/xiuyechen), developed with Codex, and shared under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
