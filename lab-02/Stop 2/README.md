@@ -23,10 +23,10 @@ Then visit `http://localhost:8000/`.
 
 ## Classifier Development Log
 
-I asked for a first version with two inputs.
-The result was hard to understand, so I asked to show the scores.
-I found a strange prediction and asked Codex to explain it.
-I asked a classmate to try it and simplified the instructions.
+I asked for a first version with three inputs.
+The predictions were not very interesting or informative, so I added more labels.
+I asked Codex to make the "What is this Teaching?" section more robust, instead of simply describing the concept of pattern matching.
+I asked a friend to try it and __.
 
 
 ## Credits
