@@ -26,7 +26,8 @@ Then visit `http://localhost:8000/`.
 I asked for a first version with three inputs.
 The predictions were not very interesting or informative, so I added more labels.
 I asked Codex to make the "What is this Teaching?" section more robust, instead of simply describing the concept of pattern matching.
-I asked a friend to try it and __.
+I then asked Codex to make a few stylistic edits to improve readability.
+Finally, I asked a friend to try it and __.
 
 
 ## Credits
