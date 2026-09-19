@@ -27,8 +27,7 @@ I asked for a first version with two inputs.
 The predictions were not very interesting or informative, so I added more labels.
 I asked Codex to make the "What is this Teaching?" section more robust, instead of simply describing the concept of pattern matching.
 I then asked Codex to make a few stylistic edits to improve readability.
-Finally, I asked a friend to try it and __.
-
+Finally, I asked a friend to try it. Her main piece of feedback was that the model chose the same guess for dogs that would appear very different; specifically, she referenced that the model output Lhasa Apso for both a long haired tiny dog and long haired medium dog. She requested I set the "model distance’s" upper boundary to 15 to make the model’s guesses more probable and specific (ie. to reinforce that a long haired tiny dog and long haired medium dog are likely not the same breed). I asked my Codex to make an appropriate edit. 
 
 ## Credits
 
