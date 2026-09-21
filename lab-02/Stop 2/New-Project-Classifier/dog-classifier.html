@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A playful, tiny dog-breed pattern-matching classifier.">
+  <title>Dog Guessing Machine</title>
+  <style>
+    :root{--ink:#24203b;--cream:#fff9ec;--peach:#ffc98b;--pink:#ff719a;--mint:#99e6ca;--purple:#7255c7;--line:#302a50}
+    *{box-sizing:border-box} body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 15% 10%,#ffe5bd 0 11%,transparent 11.4%),radial-gradient(circle at 86% 14%,#d5f4e7 0 10%,transparent 10.4%),var(--cream);font-family:ui-rounded,"Avenir Next",system-ui,sans-serif}
+    main{width:min(940px,calc(100% - 32px));margin:0 auto;padding:38px 0 48px} header{text-align:center;margin-bottom:24px}.kicker{display:inline-block;margin:0 0 9px;padding:5px 11px;border:2px solid var(--line);border-radius:999px;background:var(--mint);font-size:.76rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    h1{margin:0;font-size:clamp(2.35rem,7vw,4.5rem);line-height:.93;letter-spacing:-.065em}.intro{max-width:630px;margin:16px auto 0;font-size:1.05rem;line-height:1.55}.machine{display:grid;grid-template-columns:1.12fr .88fr;gap:20px}.card{border:3px solid var(--line);border-radius:23px;padding:clamp(18px,3vw,29px);background:#fff;box-shadow:7px 8px 0 var(--line)}
+    h2{margin:0 0 8px;font-size:1.45rem;letter-spacing:-.04em}.hint{margin:0 0 19px;color:#5f5874;line-height:1.45}.control{margin:25px 0}.control label,.hair-title{display:flex;justify-content:space-between;align-items:baseline;font-weight:800}output{color:var(--purple);font-size:1.05rem}input[type="range"]{width:100%;margin:14px 0 7px;accent-color:var(--purple)}.scale{display:flex;justify-content:space-between;color:#686177;font-size:.82rem;font-weight:700}
+    .hair-options{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.hair{min-height:108px;border:2px solid var(--line);border-radius:16px;background:#fffaf4;color:var(--ink);padding:10px 6px;font:inherit;font-weight:800;cursor:pointer;transition:transform .15s,background .15s,box-shadow .15s}.hair:hover{transform:translateY(-3px);box-shadow:0 4px 0 var(--line)}.hair[aria-pressed="true"]{outline:4px solid var(--pink);background:#fff0f5}.hair .icon{display:block;margin-bottom:7px;font-size:2.35rem;line-height:1}
+    .prediction-stack{display:grid;gap:14px}.guess{min-height:390px;display:flex;flex-direction:column;justify-content:center;text-align:center;background:linear-gradient(145deg,#f4ecff,#fff 50%,#fff2dc)}.dog{font-size:clamp(5.5rem,15vw,8.5rem);line-height:1;filter:drop-shadow(4px 5px 0 #d8cbe9)}.result-label{margin:15px 0 2px;font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}#breed{margin:0;font-size:clamp(2rem,5vw,3.3rem);line-height:1;letter-spacing:-.06em}#reason{max-width:320px;margin:13px auto 0;line-height:1.45}.score-card{border:3px solid var(--line);border-radius:17px;padding:14px 17px;background:var(--pink);box-shadow:5px 5px 0 var(--line)}.score-card h2{margin:0 0 5px;font-size:1rem}.score{margin:0;font-size:.91rem;font-weight:800;line-height:1.4}.score-note{margin:4px 0 0;font-size:.86rem;line-height:1.4}
+    .confidence{margin:20px auto 0;width:min(300px,100%);text-align:left}.confidence div{display:flex;justify-content:space-between;font-size:.83rem;font-weight:800}.bar{height:12px!important;margin-top:6px;overflow:hidden;border:2px solid var(--line);border-radius:999px;background:#fff}#barFill{height:100%;width:0;background:var(--pink);transition:width .25s ease}
+    .try{margin:24px 0 0;border:3px dashed var(--line);border-radius:20px;padding:20px;background:var(--peach)}.try h2{font-size:1.25rem}.try p{margin:7px 0 0;line-height:1.45}.example-btn{margin-top:13px;border:2px solid var(--line);border-radius:999px;padding:9px 14px;background:#fff;color:var(--ink);font:inherit;font-weight:800;cursor:pointer;box-shadow:3px 3px 0 var(--line)}.example-btn:hover{background:#fff0f5;transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--line)}.lesson{margin-top:27px;border:3px solid var(--line);border-radius:23px;padding:24px;background:var(--mint)}.lesson h2{font-size:1.55rem}.lesson p{max-width:720px;margin:7px 0 0;line-height:1.55}.patterns{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}.pattern{border:2px solid var(--line);border-radius:15px;padding:11px;background:#fffdf7}.pattern b{display:block;margin-bottom:4px}.pattern span{font-size:.9rem;line-height:1.35}.note{margin-top:15px!important;font-size:.91rem}
+    @media(max-width:700px){main{padding-top:24px}.machine{grid-template-columns:1fr}.guess{min-height:320px}.patterns{grid-template-columns:1fr}.card{box-shadow:5px 6px 0 var(--line)}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="kicker">A tiny pretend classifier</p>
+      <h1>Dog Guessing Machine 🐾</h1>
+      <p class="intro">Describe an imaginary dog and this little model will make its best breed guess. It is not looking at a real dog—it only matches the two clues you give it.</p>
+    </header>
+    <section class="machine" aria-label="Dog breed classifier">
+      <section class="card">
+        <h2>1. Build a dog description</h2>
+        <p class="hint">Choose a size and a hair type. Then watch the guess change.</p>
+        <div class="control">
+          <label for="size">Size <output id="sizeWord" for="size">medium</output></label>
+          <input id="size" type="range" min="0" max="100" value="50" aria-describedby="sizeScale">
+          <div class="scale" id="sizeScale"><span>tiny</span><span>small</span><span>medium</span><span>big</span><span>giant</span></div>
+        </div>
+        <div class="control">
+          <div class="hair-title">Hair type <span id="hairWord">long</span></div>
+          <div class="hair-options" role="group" aria-label="Hair type">
+            <button class="hair" type="button" data-hair="short" aria-pressed="false"><span class="icon" aria-hidden="true">━</span>Short</button>
+            <button class="hair" type="button" data-hair="long" aria-pressed="true"><span class="icon" aria-hidden="true">━━<br>━━</span>Long</button>
+            <button class="hair" type="button" data-hair="curly" aria-pressed="false"><span class="icon" aria-hidden="true">〰〰</span>Curly</button>
+          </div>
+        </div>
+      </section>
+      <div class="prediction-stack">
+        <section class="card guess" aria-live="polite">
+          <div class="dog" aria-hidden="true">🐶</div>
+          <p class="result-label">The model guesses</p>
+          <h2 id="breed">Lhasa Apso</h2>
+          <p id="reason"></p>
+          <div class="confidence">
+            <div><span>How close is this match?</span><span id="confidenceText">—</span></div>
+            <div class="bar"><div id="barFill"></div></div>
+          </div>
+        </section>
+        <aside class="score-card" aria-live="polite">
+          <h2>How the model scored it</h2>
+          <p class="score" id="score"></p>
+          <p class="score-note" id="scoreNote"></p>
+        </aside>
+      </div>
+    </section>
+    <aside class="try">
+      <h2>Challenge the machine!</h2>
+      <p>Try something strange: a <strong>tiny curly-haired</strong> dog, or a <strong>giant short-haired</strong> dog. The machine still has to pick one of its eight labels—even when your description does not fit neatly.</p>
+      <button class="example-btn" id="bichonExample" type="button">Try tiny + curly → Bichon Frisé</button>
+      <button class="example-btn" id="goldenExample" type="button">Try big + long → Golden Retriever</button>
+    </aside>
+    <section class="lesson">
+      <h2>What is this teaching?</h2>
+      <p>This is a tiny example of <strong>pattern matching</strong>. It does not know dog breeds or look at dog photos. It turns your size and hair choices into a simple description, compares that description with its stored examples, and picks the closest match.</p>
+      <div class="patterns">
+        <div class="pattern"><b>1. Turn clues into data</b><span>The slider becomes a size number. The selected hair button becomes a category.</span></div>
+        <div class="pattern"><b>2. Compare patterns</b><span>Hair type matters a lot; size helps choose between similar examples, such as Poodle and Labradoodle.</span></div>
+        <div class="pattern"><b>3. Draw a boundary</b><span>At some point, a small slider move makes a different example become the closest one.</span></div>
+        <div class="pattern"><b>4. Notice the limits</b><span>An unusual description still gets a guess because the model must choose from its limited list.</span></div>
+      </div>
+      <p class="note">That is why the “stretchy guess” meter matters: a confident-looking answer is not proof that the model understands dogs. Real classifiers need many examples, better inputs, and careful testing for mistakes and unfair patterns.</p>
+    </section>
+  </main>
+  <script>
+    const examples=[
+      {breed:'Chihuahua',size:10,hair:'short'},
+      {breed:'Bichon Frisé',size:12,hair:'curly'},
+      {breed:'Labradoodle',size:48,hair:'curly'},
+      {breed:'Great Dane',size:94,hair:'short'},
+      {breed:'Poodle',size:73,hair:'curly'},
+      {breed:'Golden Retriever',size:70,hair:'long'},
+      {breed:'Bernese Mountain Dog',size:91,hair:'long'},
+      {breed:'Lhasa Apso',size:43,hair:'long'}
+    ];
+    const size=document.querySelector('#size'),sizeWord=document.querySelector('#sizeWord'),hairWord=document.querySelector('#hairWord'),breed=document.querySelector('#breed'),reason=document.querySelector('#reason'),score=document.querySelector('#score'),scoreNote=document.querySelector('#scoreNote'),confidenceText=document.querySelector('#confidenceText'),barFill=document.querySelector('#barFill');
+    let selectedHair='long';
+    function describeSize(value){if(value<20)return'tiny';if(value<40)return'small';if(value<60)return'medium';if(value<80)return'big';return'giant'}
+    function updateGuess(){
+      const chosenSize=Number(size.value);sizeWord.textContent=describeSize(chosenSize);hairWord.textContent=selectedHair;
+      const best=examples.map(example=>({...example,distance:Math.abs(chosenSize-example.size)+(selectedHair===example.hair?0:45)})).sort((a,b)=>a.distance-b.distance)[0];
+      const goodMatchLimit=20;
+      const closeness=Math.max(0,Math.round((1-best.distance/goodMatchLimit)*100));
+      const matchWords=best.distance>=goodMatchLimit?'not a great guess':best.distance<=4?'very close match':best.distance<=9?'reasonable match':'a loose match';
+      const sameHair=selectedHair===best.hair;
+      breed.textContent=best.breed;reason.textContent='Closest stored example: '+best.breed+'. '+(sameHair?'The hair type matches.':'The hair type does not match, so the model adds 45 distance points.');score.textContent='Model distance: '+best.distance+'.';scoreNote.textContent=best.distance>=goodMatchLimit?'A distance of 20 or more means no stored example is a good fit. The model must still choose the least-bad label.':'A smaller distance means your description is more similar to that stored example.';confidenceText.textContent=matchWords;barFill.style.width=closeness+'%';
+    }
+    size.addEventListener('input',updateGuess);
+    document.querySelectorAll('[data-hair]').forEach(button=>button.addEventListener('click',()=>{selectedHair=button.dataset.hair;document.querySelectorAll('[data-hair]').forEach(item=>item.setAttribute('aria-pressed',item===button));updateGuess()}));
+    document.querySelector('#bichonExample').addEventListener('click',()=>{size.value=12;selectedHair='curly';document.querySelectorAll('[data-hair]').forEach(item=>item.setAttribute('aria-pressed',item.dataset.hair==='curly'));updateGuess();size.focus()});
+    document.querySelector('#goldenExample').addEventListener('click',()=>{size.value=70;selectedHair='long';document.querySelectorAll('[data-hair]').forEach(item=>item.setAttribute('aria-pressed',item.dataset.hair==='long'));updateGuess();size.focus()});
+    updateGuess();
+  </script>
+</body>
+</html>
