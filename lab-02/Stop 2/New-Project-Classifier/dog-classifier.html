@@ -14,8 +14,8 @@
     .hair-options{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.hair{min-height:108px;border:2px solid var(--line);border-radius:16px;background:#fffaf4;color:var(--ink);padding:10px 6px;font:inherit;font-weight:800;cursor:pointer;transition:transform .15s,background .15s,box-shadow .15s}.hair:hover{transform:translateY(-3px);box-shadow:0 4px 0 var(--line)}.hair[aria-pressed="true"]{outline:4px solid var(--pink);background:#fff0f5}.hair .icon{display:block;margin-bottom:7px;font-size:2.35rem;line-height:1}
     .prediction-stack{display:grid;gap:14px}.guess{min-height:390px;display:flex;flex-direction:column;justify-content:center;text-align:center;background:linear-gradient(145deg,#f4ecff,#fff 50%,#fff2dc)}.dog{font-size:clamp(5.5rem,15vw,8.5rem);line-height:1;filter:drop-shadow(4px 5px 0 #d8cbe9)}.result-label{margin:15px 0 2px;font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}#breed{margin:0;font-size:clamp(2rem,5vw,3.3rem);line-height:1;letter-spacing:-.06em}#reason{max-width:320px;margin:13px auto 0;line-height:1.45}.score-card{border:3px solid var(--line);border-radius:17px;padding:14px 17px;background:var(--pink);box-shadow:5px 5px 0 var(--line)}.score-card h2{margin:0 0 5px;font-size:1rem}.score{margin:0;font-size:.91rem;font-weight:800;line-height:1.4}.score-note{margin:4px 0 0;font-size:.86rem;line-height:1.4}
     .confidence{margin:20px auto 0;width:min(300px,100%);text-align:left}.confidence div{display:flex;justify-content:space-between;font-size:.83rem;font-weight:800}.bar{height:12px!important;margin-top:6px;overflow:hidden;border:2px solid var(--line);border-radius:999px;background:#fff}#barFill{height:100%;width:0;background:var(--pink);transition:width .25s ease}
-    .try{margin:24px 0 0;border:3px dashed var(--line);border-radius:20px;padding:20px;background:var(--peach)}.try h2{font-size:1.25rem}.try p{margin:7px 0 0;line-height:1.45}.example-btn{margin-top:13px;border:2px solid var(--line);border-radius:999px;padding:9px 14px;background:#fff;color:var(--ink);font:inherit;font-weight:800;cursor:pointer;box-shadow:3px 3px 0 var(--line)}.example-btn:hover{background:#fff0f5;transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--line)}.lesson{margin-top:27px;border:3px solid var(--line);border-radius:23px;padding:24px;background:var(--mint)}.lesson h2{font-size:1.55rem}.lesson p{max-width:720px;margin:7px 0 0;line-height:1.55}.patterns{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}.pattern{border:2px solid var(--line);border-radius:15px;padding:11px;background:#fffdf7}.pattern b{display:block;margin-bottom:4px}.pattern span{font-size:.9rem;line-height:1.35}.note{margin-top:15px!important;font-size:.91rem}
-    @media(max-width:700px){main{padding-top:24px}.machine{grid-template-columns:1fr}.guess{min-height:320px}.patterns{grid-template-columns:1fr}.card{box-shadow:5px 6px 0 var(--line)}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+    .try{margin:24px 0 0;border:3px dashed var(--line);border-radius:20px;padding:20px;background:var(--peach)}.try h2{font-size:1.25rem}.try p{margin:7px 0 0;line-height:1.45}.example-btn{margin-top:13px;border:2px solid var(--line);border-radius:999px;padding:9px 14px;background:#fff;color:var(--ink);font:inherit;font-weight:800;cursor:pointer;box-shadow:3px 3px 0 var(--line)}.example-btn:hover{background:#fff0f5;transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--line)}.neighbors{margin-top:27px;border:3px solid var(--line);border-radius:23px;padding:24px;background:#e9e2ff}.neighbors h2{font-size:1.55rem}.neighbors>p{margin:7px 0 0;line-height:1.5}.neighbor-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:17px}.neighbor-card{border:2px solid var(--line);border-radius:15px;padding:14px;background:#fff}.neighbor-card.closest{background:var(--mint)}.neighbor-card span{display:block;font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.neighbor-card strong{display:block;margin:6px 0;font-size:1.35rem;line-height:1.1}.neighbor-card p{margin:0;font-size:.88rem;line-height:1.4}.boundary-note{margin-top:13px!important;font-size:.9rem;font-weight:700}.lesson{margin-top:27px;border:3px solid var(--line);border-radius:23px;padding:24px;background:var(--mint)}.lesson h2{font-size:1.55rem}.lesson p{max-width:720px;margin:7px 0 0;line-height:1.55}.patterns{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}.pattern{border:2px solid var(--line);border-radius:15px;padding:11px;background:#fffdf7}.pattern b{display:block;margin-bottom:4px}.pattern span{font-size:.9rem;line-height:1.35}.note{margin-top:15px!important;font-size:.91rem}
+    @media(max-width:700px){main{padding-top:24px}.machine{grid-template-columns:1fr}.guess{min-height:320px}.patterns,.neighbor-grid{grid-template-columns:1fr}.card{box-shadow:5px 6px 0 var(--line)}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
   </style>
 </head>
 <body>
@@ -67,6 +67,15 @@
       <button class="example-btn" id="bichonExample" type="button">Try tiny + curly → Bichon Frisé</button>
       <button class="example-btn" id="goldenExample" type="button">Try big + long → Golden Retriever</button>
     </aside>
+    <section class="neighbors" aria-live="polite">
+      <h2>Bonus: watch a decision boundary</h2>
+      <p>The model compares every stored example. These are the two closest ones to your description right now.</p>
+      <div class="neighbor-grid">
+        <div class="neighbor-card closest"><span>Closest example</span><strong id="closestName">—</strong><p id="closestDistance"></p></div>
+        <div class="neighbor-card"><span>Runner-up</span><strong id="runnerName">—</strong><p id="runnerDistance"></p></div>
+      </div>
+      <p class="boundary-note" id="boundaryNote"></p>
+    </section>
     <section class="lesson">
       <h2>What is this teaching?</h2>
       <p>This is a tiny example of <strong>pattern matching</strong>. It does not know dog breeds or look at dog photos. It turns your size and hair choices into a simple description, compares that description with its stored examples, and picks the closest match.</p>
@@ -90,17 +99,20 @@
       {breed:'Bernese Mountain Dog',size:91,hair:'long'},
       {breed:'Lhasa Apso',size:43,hair:'long'}
     ];
-    const size=document.querySelector('#size'),sizeWord=document.querySelector('#sizeWord'),hairWord=document.querySelector('#hairWord'),breed=document.querySelector('#breed'),reason=document.querySelector('#reason'),score=document.querySelector('#score'),scoreNote=document.querySelector('#scoreNote'),confidenceText=document.querySelector('#confidenceText'),barFill=document.querySelector('#barFill');
+    const size=document.querySelector('#size'),sizeWord=document.querySelector('#sizeWord'),hairWord=document.querySelector('#hairWord'),breed=document.querySelector('#breed'),reason=document.querySelector('#reason'),score=document.querySelector('#score'),scoreNote=document.querySelector('#scoreNote'),confidenceText=document.querySelector('#confidenceText'),barFill=document.querySelector('#barFill'),closestName=document.querySelector('#closestName'),closestDistance=document.querySelector('#closestDistance'),runnerName=document.querySelector('#runnerName'),runnerDistance=document.querySelector('#runnerDistance'),boundaryNote=document.querySelector('#boundaryNote');
     let selectedHair='long';
     function describeSize(value){if(value<20)return'tiny';if(value<40)return'small';if(value<60)return'medium';if(value<80)return'big';return'giant'}
     function updateGuess(){
       const chosenSize=Number(size.value);sizeWord.textContent=describeSize(chosenSize);hairWord.textContent=selectedHair;
-      const best=examples.map(example=>({...example,distance:Math.abs(chosenSize-example.size)+(selectedHair===example.hair?0:45)})).sort((a,b)=>a.distance-b.distance)[0];
+      const ranked=examples.map(example=>({...example,distance:Math.abs(chosenSize-example.size)+(selectedHair===example.hair?0:45)})).sort((a,b)=>a.distance-b.distance),best=ranked[0],runnerUp=ranked[1];
       const goodMatchLimit=20;
       const closeness=Math.max(0,Math.round((1-best.distance/goodMatchLimit)*100));
       const matchWords=best.distance>=goodMatchLimit?'not a great guess':best.distance<=4?'very close match':best.distance<=9?'reasonable match':'a loose match';
       const sameHair=selectedHair===best.hair;
       breed.textContent=best.breed;reason.textContent='Closest stored example: '+best.breed+'. '+(sameHair?'The hair type matches.':'The hair type does not match, so the model adds 45 distance points.');score.textContent='Model distance: '+best.distance+'.';scoreNote.textContent=best.distance>=goodMatchLimit?'A distance of 20 or more means no stored example is a good fit. The model must still choose the least-bad label.':'A smaller distance means your description is more similar to that stored example.';confidenceText.textContent=matchWords;barFill.style.width=closeness+'%';
+      closestName.textContent=best.breed;closestDistance.textContent='Distance '+best.distance+'.';runnerName.textContent=runnerUp.breed;runnerDistance.textContent='Distance '+runnerUp.distance+'.';
+      const gap=runnerUp.distance-best.distance;
+      boundaryNote.textContent=gap<=5?'Only '+gap+' point'+(gap===1?'':'s')+' separate these examples. A small change could switch the prediction.':'The winner is '+gap+' points closer, so this prediction has more breathing room.';
     }
     size.addEventListener('input',updateGuess);
     document.querySelectorAll('[data-hair]').forEach(button=>button.addEventListener('click',()=>{selectedHair=button.dataset.hair;document.querySelectorAll('[data-hair]').forEach(item=>item.setAttribute('aria-pressed',item===button));updateGuess()}));

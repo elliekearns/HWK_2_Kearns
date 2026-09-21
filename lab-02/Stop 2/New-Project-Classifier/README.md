@@ -31,6 +31,8 @@ For each visitor choice, the page calculates a **distance** to every stored exam
 
 The example with the smallest distance becomes the prediction. The page also shows the closest stored example and the distance score. Smaller scores mean a closer match.
 
+The page also shows the runner-up example. Comparing the closest two distances helps visitors see a decision boundary: when the scores are close together, a small change to the dog description can switch the prediction.
+
 When the distance is 20 or more, the page says the result is “not a great guess.” The model still chooses the least-bad label, but it admits that none of its examples fit well.
 
 ## A limitation I discovered
@@ -46,3 +48,4 @@ The model also does not see a real dog, understand breed biology, or use details
 - Added a visible distance score and an explanation of why the closest example won.
 - Added a 20-point cutoff so weak matches are labeled “not a great guess.”
 - Improved the page text to teach pattern matching, decision boundaries, and model limitations.
+- Added a closest-example and runner-up comparison so visitors can watch a decision boundary move.
